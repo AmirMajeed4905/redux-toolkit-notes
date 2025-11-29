@@ -14,14 +14,12 @@
       color: #333;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
       flex-direction: column;
       min-height: 100vh;
       overflow-x: hidden;
       transition: all 0.3s ease;
     }
 
-    /* Dark mode styles */
     body.dark-mode {
       background: #121212;
       color: #f7f7f7;
@@ -33,9 +31,6 @@
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
       padding: 30px 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       text-align: center;
       margin: 0 auto;
     }
@@ -47,8 +42,7 @@
       width: 90%;
       max-width: 1200px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      color: #333;
-      margin: 0 auto;
+      margin: 20px auto;
       transition: all 0.3s ease;
     }
 
@@ -109,12 +103,12 @@
     }
 
     .copy-btn {
-      background-color: #000000;
+      background-color: #000;
       color: #fff;
-      padding: 12px 24px;
+      padding: 8px 15px;
       border: none;
       border-radius: 5px;
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       cursor: pointer;
       position: absolute;
       top: 10px;
@@ -166,79 +160,54 @@
       color: #007bff;
     }
 
-    /* Add some spacing between sections */
     .section + .section {
       margin-top: 40px;
     }
 
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      .container {
-        padding: 20px;
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .section h2 {
-        font-size: 1.4rem;
-      }
-
-      .note,
-      .filename,
-      .code-block {
-        font-size: 1rem;
-      }
-
-      pre {
-        font-size: 1rem;
-      }
-
-      .copy-btn {
-        font-size: 1rem;
-        padding: 10px 20px;
-      }
-
-      .section {
-        margin-bottom: 20px;
-      }
+    #theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: 700;
     }
 
+    @media (max-width: 768px) {
+      h1 { font-size: 1.8rem; }
+      .container { padding: 20px; width: 100%; max-width: 100%; }
+      .section h2 { font-size: 1.4rem; }
+      .note, .filename, .code-block { font-size: 1rem; }
+      pre { font-size: 1rem; }
+      .copy-btn { font-size: 0.9rem; padding: 6px 12px; }
+      .section { margin-bottom: 20px; }
+    }
   </style>
 </head>
 
 <body>
-    <h1>Redux Toolkit Notes</h1>
+  <button id="theme-toggle">Dark Mode</button>
+  <h1>Redux Toolkit Notes</h1>
 
-    <button id="theme-toggle" style="position: sticky; z-index: 1000; top: 20px; left: 9999px; background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; border-radius: 5px; font-weight: 700;">dark mode</button>
+  <div class="container">
+    <div class="section">
+      <h2>1. What is Redux Toolkit?</h2>
+      <p class="note">Redux Toolkit is the official, recommended way to use Redux in modern JavaScript apps. It simplifies store setup and reduces boilerplate.</p>
+    </div>
 
-    <div class="container">
-      <h1>Redux Toolkit</h1>
-      <h2>Introduction</h2>
-      <p class="note">
-        Redux Toolkit provides a set of tools and best practices for efficient Redux development.
-      </p>
-      <!-- Section 1 -->
-      <div class="section">
-        <h2>1. What is Redux Toolkit?</h2>
-        <p class="note">
-          Redux Toolkit is the official, recommended way to use Redux in modern JavaScript apps. It simplifies store setup and reduces boilerplate, allowing developers to focus on building apps rather than managing state.
-        </p>
-      </div>
+    <div class="section">
+      <h2>2. Installation</h2>
+      <pre><code>npm install @reduxjs/toolkit react-redux</code></pre>
+    </div>
 
-      <!-- Section 2 -->
-      <div class="section">
-        <h2>2. Installation</h2>
-        <pre><code>npm install @reduxjs/toolkit react-redux</code></pre>
-      </div>
-
-      <!-- Section 3 -->
-      <div class="section">
-        <h2>3. Folder Structure</h2>
-        <pre><code>
+    <div class="section">
+      <h2>3. Folder Structure</h2>
+      <pre><code>
 src/
 ├── redux/
 │   ├── store.js
@@ -246,15 +215,14 @@ src/
 │       └── counter/
 │           ├── counterSlice.js
 │           └── Counter.jsx
-        </code></pre>
-      </div>
+      </code></pre>
+    </div>
 
-      <!-- Section 4 -->
-      <div class="section">
-        <h2>4. Creating the Slice</h2>
-        <p class="filename">📄 src/redux/features/counter/counterSlice.js</p>
-        <div class="code-block">
-          <pre><code id="code1">import { createSlice } from '@reduxjs/toolkit';
+    <div class="section">
+      <h2>4. Creating the Slice</h2>
+      <p class="filename">📄 src/redux/features/counter/counterSlice.js</p>
+      <div class="code-block">
+        <pre id="code1"><code>import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = { value: 0 };
 
@@ -262,49 +230,37 @@ export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      if (state.value > 0) {
-        state.value -= 1;
-      }
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
-    }
+    increment: (state) => { state.value += 1; },
+    decrement: (state) => { if(state.value > 0) state.value -= 1; },
+    incrementByAmount: (state, action) => { state.value += action.payload; }
   }
 });
 
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 export default counterSlice.reducer;</code></pre>
-          <button class="copy-btn" onclick="copyCode('code1', this)">Copy Code</button>
-        </div>
+        <button class="copy-btn" onclick="copyCode('code1', this)">Copy Code</button>
       </div>
+    </div>
 
-      <!-- Section 5 -->
-      <div class="section">
-        <h2>5. Setting Up the Store</h2>
-        <p class="filename">📄 src/redux/store.js</p>
-        <div class="code-block">
-          <pre><code id="code2">import { configureStore } from '@reduxjs/toolkit';
+    <div class="section">
+      <h2>5. Setting Up the Store</h2>
+      <p class="filename">📄 src/redux/store.js</p>
+      <div class="code-block">
+        <pre id="code2"><code>import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './features/counter/counterSlice';
 
 export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
+  reducer: { counter: counterReducer },
 });</code></pre>
-          <button class="copy-btn" onclick="copyCode('code2', this)">Copy Code</button>
-        </div>
+        <button class="copy-btn" onclick="copyCode('code2', this)">Copy Code</button>
       </div>
+    </div>
 
-      <!-- Section 6 -->
-      <div class="section">
-        <h2>6. Wrapping the App with Provider</h2>
-        <p class="filename">📄 src/main.jsx</p>
-        <div class="code-block">
-          <pre><code id="code3">import React from 'react';
+    <div class="section">
+      <h2>6. Wrapping App with Provider</h2>
+      <p class="filename">📄 src/main.jsx</p>
+      <div class="code-block">
+        <pre id="code3"><code>import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
@@ -317,33 +273,28 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     &lt;/Provider&gt;
   &lt;/React.StrictMode&gt;
 );</code></pre>
-          <button class="copy-btn" onclick="copyCode('code3', this)">Copy Code</button>
-        </div>
+        <button class="copy-btn" onclick="copyCode('code3', this)">Copy Code</button>
       </div>
+    </div>
 
-      <!-- Section 7 -->
-      <div class="section">
-        <h2>7. Counter Component</h2>
-        <p class="filename">📄 src/redux/features/counter/Counter.jsx</p>
-        <div class="code-block">
-          <pre><code id="code4">import React, { useState } from 'react';
+    <div class="section">
+      <h2>7. Counter Component</h2>
+      <p class="filename">📄 src/redux/features/counter/Counter.jsx</p>
+      <div class="code-block">
+        <pre id="code4"><code>import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement, incrementByAmount } from './counterSlice';
 
 export function Counter() {
-  const count = useSelector((state) => state.counter.value);
+  const count = useSelector((state) =&gt; state.counter.value);
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState(0);
 
   return (
     &lt;div&gt;
-      &lt;button aria-label="Increment value" onClick={() =&gt; dispatch(increment())}&gt;
-        Increment
-      &lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch(increment())}&gt;Increment&lt;/button&gt;
       &lt;h1&gt;{count}&lt;/h1&gt;
-      &lt;button aria-label="Decrement value" onClick={() =&gt; dispatch(decrement())}&gt;
-        Decrement
-      &lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch(decrement())}&gt;Decrement&lt;/button&gt;
 
       &lt;input
         type="number"
@@ -356,39 +307,36 @@ export function Counter() {
     &lt;/div&gt;
   );
 }</code></pre>
-          <button class="copy-btn" onclick="copyCode('code4', this)">Copy Code</button>
-        </div>
-      </div>
-
-      <!-- Section 8 -->
-      <div class="section">
-        <h2>8. Testing the Application</h2>
-        <ul>
-          <li>Run the app and test the counter functionality.</li>
-          <li>Make sure the increment, decrement, and add amount functionalities work as expected.</li>
-        </ul>
+        <button class="copy-btn" onclick="copyCode('code4', this)">Copy Code</button>
       </div>
     </div>
 
-    <script>
-      function copyCode(id, button) {
-        const code = document.getElementById(id).textContent;
-        navigator.clipboard.writeText(code);
-        button.classList.add('copied-btn');
-        button.textContent = 'Copied!';
-        setTimeout(() => {
-          button.classList.remove('copied-btn');
-          button.textContent = 'Copy Code';
-        }, 1500);
-      }
+    <div class="section">
+      <h2>8. Testing the Application</h2>
+      <ul>
+        <li>Run the app and test the counter functionality.</li>
+        <li>Make sure increment, decrement, and add amount work as expected.</li>
+      </ul>
+    </div>
+  </div>
 
-      // Toggle dark mode
-      document.getElementById('theme-toggle').addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        const isDarkMode = document.body.classList.contains('dark-mode');
-        document.getElementById('theme-toggle').textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
-      });
-    
-    </script>
+  <script>
+    function copyCode(id, button) {
+      const code = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(code);
+      button.classList.add('copied-btn');
+      button.textContent = 'Copied!';
+      setTimeout(() => {
+        button.classList.remove('copied-btn');
+        button.textContent = 'Copy Code';
+      }, 1500);
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      document.getElementById('theme-toggle').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    });
+  </script>
 </body>
 </html>
